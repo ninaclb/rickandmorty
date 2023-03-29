@@ -65,6 +65,7 @@ function App() {
       {method: 'GET'}
     )
     .then(resposta => resposta.json())
+    .catch(erro => console.log(erro));
     return retorno.results
   }
   async function listaPersonagem(){
