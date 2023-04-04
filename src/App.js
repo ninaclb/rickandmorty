@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 function App() {
   const [conteudo, setConteudo] = useState(<></>)
+  const [busca, setBusca] = useState('')
 
   function traduzirStatus(status){
     switch(status){
@@ -61,7 +62,7 @@ function App() {
 
   async function carregarTodosOsPersonagens(){
     const retorno = await fetch(
-      'https://rickandmortyapi.com/api/character',
+      'https://rickandmortyapi.com/api/character'+busca,
       {method: 'GET'}
     )
     .then(resposta => resposta.json())
@@ -72,7 +73,7 @@ function App() {
     const todosPersonagens = await carregarTodosOsPersonagens()
 
     return todosPersonagens.map(personagem =>
-      <div className='card char'>
+      <div className='card char' key={personagem.id}>
         <img src={personagem.image} alt={personagem.name} />
         <h2>{personagem.name}</h2>
         <div className='char-info'>
@@ -104,11 +105,11 @@ function App() {
   }
 
   useEffect(() => {
-    async function carregar(){
+    async function getConteudo(){
     setConteudo(await listaPersonagem())
     }
-    carregar()
-  }, [])
+    getConteudo()
+  }, [busca])
 
   return (
     <div className="App">
@@ -119,9 +120,9 @@ function App() {
         <span className='filtros-titulo'>Filtros</span>
         <div className='filtro'>
           <b>Status:</b>
-          <span>Vivo</span>
-          <span>Morto</span>
-          <span>Desconhecido</span>
+          <span onClick={() => setBusca('?status=live')}>Vivo</span>
+          <span onClick={() => setBusca('?status=dead')}>Morto</span>
+          <span onClick={() => setBusca('?status=unknown')}>Desconhecido</span>
         </div>
         <div className='filtro'>
           <b>Genero:</b>
