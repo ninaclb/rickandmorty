@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 function App() {
   const [conteudo, setConteudo] = useState(<></>)
-  const [busca, setBusca] = useState('')
+  const [busca, setBusca] = useState('') // sempre duas variaveis uma é a variavel e outra é a variavel que pode mexer nela 
 
   function traduzirStatus(status){
     switch(status){
@@ -60,8 +60,8 @@ function App() {
     }}
 
 
-  async function carregarTodosOsPersonagens(){
-    const retorno = await fetch(
+  async function carregarTodosOsPersonagens(){ // async é um metodo que espera o fetch terminar de carregar
+    const retorno = await fetch( // fetch é um metodo que pega uma url e retorna um json     await é um metodo que espera o fetch terminar de carregar
       'https://rickandmortyapi.com/api/character'+busca,
       {method: 'GET'}
     )
@@ -89,7 +89,8 @@ function App() {
         <div>
         <div className='lista-secundaria '>
           <b>Participações: </b>
-          {personagem.episode.map(ep => (
+          {personagem.episode.map(ep => ( // map é um  e o split é um metodo que corta a url o quanto vc quiser 
+
             <span key={personagem.name+(ep.split('episode/')[1])}>
               Ep-{ep.split('episode/')[1]}
             </span>
@@ -126,24 +127,24 @@ function App() {
         </div>
         <div className='filtro'>
           <b>Genero:</b>
-          <span>Masculino</span>
-          <span>Feminino</span>
-          <span>Sem Gênero</span>
-          <span>Desconhecido</span>
+          <span onClick={() => setBusca("?gender=male")}>Masculino</span>
+          <span onClick={() => setBusca("?gender=female")}>Feminino</span>
+          <span onClick={() => setBusca("?gender=genderless")}>Sem Gênero</span>
+          <span onClick={() => setBusca("?gender=unknown")}>Desconhecido</span>
         </div>
         <div className='filtro'>
           <b>Espécie:</b>
-          <span>Humano</span>
-          <span>Alien</span>
-          <span>Humanoide</span>
-          <span>Poopybutthole</span>
-          <span>Criatura Mítica</span>
-          <span>Animal</span>
-          <span>Robô</span>
-          <span>Doença</span>
-          <span>Cronenberg</span>
-          <span>Desconhecido</span>
-          <span>Planeta</span>
+          <span onClick={() => setBusca("?species=human")}>Humano</span>
+          <span onClick={() => setBusca("?species=alien")}>Alien</span>
+          <span onClick={() => setBusca("?species=humanoid")}>Humanoide</span>
+          <span onClick={() => setBusca("?species=poopybutthole")}>Poopybutthole</span>
+          <span onClick={() => setBusca("?species=Mythological Creature")}>Criatura Mítica</span>
+          <span onClick={() => setBusca("?species=animal")}>Animal</span>
+          <span onClick={() => setBusca("?species=robot")}>Robô</span>
+          <span onClick={() => setBusca("?species=disease")}>Doença</span>
+          <span onClick={() => setBusca("?species=cronenberg")}>Cronenberg</span>
+          <span onClick={() => setBusca("?species=unknown")}>Desconhecido</span>
+          <span onClick={() => setBusca("?species=planet")}>Planeta</span>
         </div>
       </div>
       <div className='lista-principal'>
