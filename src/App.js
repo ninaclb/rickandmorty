@@ -105,6 +105,19 @@ function App() {
       )
   }
 
+  function montarFiltro(tipo, valor){
+    const filtros = new URLSearchParams(busca);// URLSearchParams é um metodo que pega a url e transforma em um objeto nativo de javascript
+
+    const retorno = filtros.get(valor) // get é um metodo que pega o valor do objeto nativo de javascript
+    if(retorno === valor){
+      filtros.delete(tipo)
+    } else {
+      filtros.set(tipo, valor)
+    }
+    filtros.set(tipo, valor) // set é um metodo que seta o valorou pega o objeto nativo de javascript
+    setBusca('?'+filtros.toString()) // toString é um metodo que transforma o objeto nativo de javascript em uma string
+  }
+
   useEffect(() => {
     async function getConteudo(){
     setConteudo(await listaPersonagem())
@@ -121,30 +134,30 @@ function App() {
         <span className='filtros-titulo'>Filtros</span>
         <div className='filtro'>
           <b>Status:</b>
-          <span onClick={() => setBusca('?status=live')}>Vivo</span>
-          <span onClick={() => setBusca('?status=dead')}>Morto</span>
-          <span onClick={() => setBusca('?status=unknown')}>Desconhecido</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('status','alive')}>Vivo</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('status','dead')}>Morto</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('status','unknown')}>Desconhecido</span>
         </div>
         <div className='filtro'>
           <b>Genero:</b>
-          <span onClick={() => setBusca("?gender=male")}>Masculino</span>
-          <span onClick={() => setBusca("?gender=female")}>Feminino</span>
-          <span onClick={() => setBusca("?gender=genderless")}>Sem Gênero</span>
-          <span onClick={() => setBusca("?gender=unknown")}>Desconhecido</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('gender','male')}>Masculino</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('gender','female')}>Feminino</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('gender','genderless')}>Sem Gênero</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('gender','unknown')}>Desconhecido</span>
         </div>
         <div className='filtro'>
           <b>Espécie:</b>
-          <span onClick={() => setBusca("?species=human")}>Humano</span>
-          <span onClick={() => setBusca("?species=alien")}>Alien</span>
-          <span onClick={() => setBusca("?species=humanoid")}>Humanoide</span>
-          <span onClick={() => setBusca("?species=poopybutthole")}>Poopybutthole</span>
-          <span onClick={() => setBusca("?species=Mythological Creature")}>Criatura Mítica</span>
-          <span onClick={() => setBusca("?species=animal")}>Animal</span>
-          <span onClick={() => setBusca("?species=robot")}>Robô</span>
-          <span onClick={() => setBusca("?species=disease")}>Doença</span>
-          <span onClick={() => setBusca("?species=cronenberg")}>Cronenberg</span>
-          <span onClick={() => setBusca("?species=unknown")}>Desconhecido</span>
-          <span onClick={() => setBusca("?species=planet")}>Planeta</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('species','human')}>Humano</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('species','alien')}>Alien</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('species','humanoid')}>Humanoide</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('species','poopybutthole')}>Poopybutthole</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('species','Mythological Creature')}>Criatura Mítica</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('species','animal')}>Animal</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('species','robot')}>Robô</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('species','disease')}>Doença</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('species','cronenberg')}>Cronenberg</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('species','unknown')}>Desconhecido</span>
+          <span className='filtro-ativo' onClick={() => montarFiltro('species','planet')}>Planeta</span>
         </div>
       </div>
       <div className='lista-principal'>
